@@ -6,6 +6,12 @@ const Book = require('../../models/Books')
 
 router.get('/test', (req,res) => res.send('Book Route Testing'))
 
+router.get('/',(req, res) => {
+  Book.find()
+  .then(books => res.json(books))
+  .catch(err => res.status(404).json({ nobookfound: 'No Books Found'}));
+});
+
 router.get('/:id', (req, res) => {
     Book.findById(req.params.id)
       .then(book => res.json(book))
